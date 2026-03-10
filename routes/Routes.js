@@ -1,9 +1,9 @@
-import express, { Router } from "express";
+import express from "express";
 
-const route = express.Router();
+const router = express.Router();
 
-route.get("/login", (req, res) => {
-  res.send("this is loging route!");
+router.get("/login", (req, res) => {
+  res.send("this is login route!");
 });
 
-export default route;
+export default router;
