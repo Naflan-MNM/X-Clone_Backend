@@ -1,38 +1,36 @@
 import mongoose from "mongoose";
 
-const UserSchema = mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
-    usename: {
+    username: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
     },
     fullname: {
       type: String,
-      require: true,
+      required: true,
     },
     email: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
     },
     password: {
       type: String,
-      require: true,
+      required: true,
       minLength: 6,
     },
     followers: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        default: [],
       },
     ],
     following: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        default: [],
       },
     ],
     profileimage: {
@@ -52,8 +50,9 @@ const UserSchema = mongoose.Schema(
       default: "",
     },
   },
-  { timestamp: true },
-); //this timestamp object store the time the users create and update on db
+  { timestamps: true }, // this will add the time when it was updated and added
+);
 
 const User = mongoose.model("User", UserSchema);
+
 export default User;
