@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import authroutes from "./routes/Routes.js";
 import connectDB from "./db/connectDB.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 3500;
 
 app.use(express.json());
+app.use(cookieParser());
 app.use("/auth/api", authroutes);
 
 app.get("/", (req, res) => {
