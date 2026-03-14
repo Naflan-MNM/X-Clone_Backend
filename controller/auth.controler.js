@@ -2,6 +2,7 @@ import User from "../model/schema/UserSchema.js";
 import bcrypt from "bcryptjs";
 import validator from "validator";
 import generateToken from "../utils/generateToken.js";
+import { mongo } from "mongoose";
 
 const signup = async (req, res) => {
   try {
@@ -59,9 +60,14 @@ const signup = async (req, res) => {
     });
   }
 };
-const login = (req, res) => {
-  //generateToken();
-  res.send("this  is login");
+const login = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const findUsername = await User.find(username);
+  } catch (error) {
+    console.error(`Error in login controller:${error}`);
+    res.status(500).json({ error: "Internal server errorr" });
+  }
 };
 const logout = (req, res) => {
   res.send("this  is logout");
