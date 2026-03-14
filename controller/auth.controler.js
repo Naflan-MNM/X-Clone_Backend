@@ -1,6 +1,7 @@
 import User from "../model/schema/UserSchema.js";
 import bcrypt from "bcryptjs";
 import validator from "validator";
+import generateToken from "../utils/generateToken.js";
 
 const signup = async (req, res) => {
   try {
@@ -44,11 +45,13 @@ const signup = async (req, res) => {
       password: hashedPassword,
     });
 
-    await newUser.save();
-
-    return res.status(201).json({
-      message: "User created successfully",
-    });
+    if (newUser) {
+      generateToken(newUser._id, res);
+      await newUser.save();
+      return res.status(201).json({
+        message: "User created successfully",
+      });
+    }
   } catch (error) {
     console.log(`Error in signup controller: ${error}`);
     res.status(500).json({
@@ -57,6 +60,7 @@ const signup = async (req, res) => {
   }
 };
 const login = (req, res) => {
+  //generateToken();
   res.send("this  is login");
 };
 const logout = (req, res) => {
