@@ -3,11 +3,11 @@ import User from "../model/schema/UserSchema.js";
 
 const protectRoute = async (req, res, next) => {
   try {
-    const token = req.cookies.jwt;
+    const token = req.cookies.jwt; //read the jwt from the cookie
     if (!token) {
       return res.status(400).json({ error: "Unauthorized:No token provided" });
     }
-    const decode = jwt.verify(token, process.env.JWT_SECRET);
+    const decode = jwt.verify(token, process.env.JWT_SECRET); //it will return userId and iat(time of the tocken was created )
     if (!decode) {
       return res.status(500).json({ error: "Unauthorized:Invalid Token" });
     }
@@ -20,7 +20,7 @@ const protectRoute = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(`error in protuctRoute middleware: ${error}`);
-    res.status(200).json({ error: "Internel server error" });
+    res.status(500).json({ error: "Internel server error" });
   }
 };
 
