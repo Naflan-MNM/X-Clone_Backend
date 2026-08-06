@@ -5,6 +5,7 @@ import connectDB from "./db/connectDB.js";
 import cookieParser from "cookie-parser";
 import userroutes from "./routes/user.routes.js";
 import cloudinary from "cloudinary";
+import postroutes from "./routes/posts.route.js";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/auth/api", authroutes);
 app.use("/auth/users", userroutes);
+app.use("/api/posts", postroutes);
 
 app.get("/", (req, res) => {
   res.send("hello world!");
